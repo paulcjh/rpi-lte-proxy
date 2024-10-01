@@ -30,3 +30,9 @@ The nameservers (excluding 8.8.8.8), and gateway was derived from the settings d
 There are three deployment methods for the squid cache, bare metal, docker, kubernetes (if you want lots of nodes). Theres a docker compose attached and a k8s dir with everything you'll need.
 
 _note: for k8s you'll need to add a taint on the pi-node, or hardcode the name_
+
+To send a request to the docker container run:
+
+```bash
+curl -x http://localhost:3128 -U user:password https://www.google.com
+```
