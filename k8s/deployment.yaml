@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy-deployment
+  namespace: proxy
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: squid
+  template:
+    metadata:
+      labels:
+        app: squid
+    spec:
+      tolerations:
+        - key: proxy-node
+          operator: Exists
+          effect: NoSchedule
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+        - name: squid
+          image: ubuntu/squid:latest
+          ports:
+            - containerPort: 3128
+          volumeMounts:
+            - name: squid-config-volume
+              mountPath: /etc/squid/squid.conf
+              subPath: squid.conf
+            - name: squid-config-volume
+              mountPath: /etc/squid/passwd
+              subPath: passwd
+      volumes:
+        - name: squid-config-volume
+          configMap:
+            name: squid-config

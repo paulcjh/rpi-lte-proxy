@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: squid-config
+  namespace: proxy
+data:
+  squid.conf: |
+    http_port 3128
+
+    auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd
+    auth_param basic realm "Squid Proxy"
+    acl authenticated proxy_auth REQUIRED
+
+    # Access control settings
+    http_access allow authenticated
+    http_access deny all
+
+    # Direct outgoing traffic through a specific interface
+    tcp_outgoing_address 192.168.255.10
+  passwd: |
+    # htpasswd -nb user pass
+    user:$apr1$qmIQQY3z$g7roY8bsTFAQhRRDKErcy/

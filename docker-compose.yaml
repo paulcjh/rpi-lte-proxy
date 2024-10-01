@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  squid:
+    container_name: squid-proxy
+    image: ubuntu/squid:latest
+    volumes:
+      - ./squid.conf:/etc/squid/squid.conf
+      - ./passwd:/etc/squid/passwd
+    ports:
+      - 3128:3128
