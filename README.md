@@ -24,3 +24,9 @@ iface usb0 inet static
 ```
 
 The nameservers (excluding 8.8.8.8), and gateway was derived from the settings defined by the Waveshare device when it created the network interface on the Pi. You can see the default settings by running `ifconfig`.
+
+# Using it
+
+There are three deployment methods for the squid cache, bare metal, docker, kubernetes (if you want lots of nodes). Theres a docker compose attached and a k8s dir with everything you'll need.
+
+_note: for k8s you'll need to add a taint on the pi-node, or hardcode the name_

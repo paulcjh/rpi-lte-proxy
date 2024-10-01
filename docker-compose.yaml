@@ -3,6 +3,7 @@ services:
   squid:
     container_name: squid-proxy
     image: ubuntu/squid:latest
+    network_mode: host
     volumes:
       - ./squid.conf:/etc/squid/squid.conf
       - ./passwd:/etc/squid/passwd
